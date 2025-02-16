@@ -13,6 +13,8 @@ JWT Validator: Ensures that access tokens (JWTs) are valid before allowing API r
 A user or service authenticates via Auth0/Keycloak.
 They receive an OAuth2/OIDC token (JWT).
 The JWT Validator verifies the token before allowing access to protected services.
+
+
 🛡️ 2. API Security Layer
 🔹 Purpose: Protects APIs and enforces security rules.
 🔹 Key Components:
@@ -32,6 +34,8 @@ The Envoy Proxy routes the request.
 If authentication is required, it checks the JWT Validator.
 The Rate Limiter applies burst limits, quotas, and request per second (RPS) rules.
 If all checks pass, the request is forwarded to the appropriate microservice.
+
+
 🕸️ 3. Service Mesh Layer
 🔹 Purpose: Secures service-to-service communication with mTLS (mutual TLS) and traffic policies.
 🔹 Key Components:
@@ -46,6 +50,8 @@ mTLS Policies: Enforces encrypted traffic between services.
 Istio and Cilium intercept all service-to-service communication.
 mTLS Certificates are exchanged for authentication.
 Network policies ensure only allowed services communicate.
+
+
 ⚙️ 4. Application Services
 🔹 Purpose: Hosts business logic and services.
 🔹 Key Components:
@@ -56,6 +62,8 @@ Service 1 / Service 2 / Service 3: Represents various applications running on th
 API Gateway forwards requests to the appropriate service.
 Services interact securely through Service Mesh (Istio + Cilium).
 Services log events and send them to Observability Stack.
+
+
 📡 5. Observability Stack
 🔹 Purpose: Provides monitoring, logging, and tracing to track system health and performance.
 🔹 Key Components:
@@ -74,6 +82,8 @@ Grafana → Visualizes metrics and logs in dashboards.
 Services generate traces (OTEL), logs (Vector), and metrics (Prometheus).
 Traces go to Tempo/Jaeger, logs go to Loki, and metrics go to Prometheus.
 Grafana aggregates all data for visualization.
+
+
 🔍 6. Security Monitoring
 🔹 Purpose: Detects runtime security threats and compliance violations.
 🔹 Key Components:
@@ -85,6 +95,8 @@ SIEM (Security Information & Event Management): Aggregates security events from 
 Falco detects anomalies (e.g., suspicious processes in a container).
 Security logs are forwarded to Vector and then to SIEM.
 SIEM correlates threats and generates alerts.
+
+
 💾 7. Data Protection & Backup
 🔹 Purpose: Ensures disaster recovery and compliance via backups.
 🔹 Key Components:
@@ -98,6 +110,8 @@ Vault Backup → Secure, encrypted backup storage.
 Velero periodically takes snapshots of Kubernetes resources.
 Backups are stored in S3 WORM (immutable) or Vault (encrypted).
 In case of disaster, services can be restored from backups.
+
+
 📝 8. Policy Management
 🔹 Purpose: Enforces security, compliance, and resource policies.
 🔹 Key Components:
