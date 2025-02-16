@@ -14,6 +14,7 @@ Authentication Flows:
 
 Set up OAuth2 authorization flows for service-to-service and user-to-service authentication.
 Integrate JWT Validator for checking access tokens for validity before granting API access.
+
 🛡️ 2. API Security Layer
 Objective:
 Protect APIs and enforce security rules for all incoming requests.
@@ -30,6 +31,7 @@ Traffic Flow:
 
 Ensure all incoming requests are routed through the API Gateway.
 Implement JWT and OAuth Validation as a first security step before reaching the services.
+
 🕸️ 3. Service Mesh Layer
 Objective:
 Ensure secure, observable, and controlled service-to-service communication.
@@ -41,6 +43,7 @@ Integrate Cilium (eBPF-based security) for enforcing security policies and traff
 Service-to-Service Communication:
 Enforce mTLS for encrypted communication between services within the mesh.
 Define traffic policies to ensure only authorized services communicate with each other.
+
 ⚙️ 4. Application Services
 Objective:
 Host microservices that contain the business logic and applications.
@@ -51,6 +54,7 @@ Deploy multiple microservices (Service 1, Service 2, Service 3) using Helm or Ku
 Integration with Service Mesh:
 Ensure each microservice communicates via the Service Mesh (Istio) for traffic management and security.
 Configure Istio Ingress Gateway for external API access to services.
+
 📡 5. Observability Stack
 Objective:
 Monitor and log system activities to track health, performance, and security threats.
@@ -67,6 +71,7 @@ Use Grafana to visualize the collected metrics in dashboards.
 Logging:
 
 Integrate Vector to collect logs and Loki to store and analyze them.
+
 🔍 6. Security Monitoring
 Objective:
 Detect and respond to runtime security threats and compliance violations.
@@ -81,6 +86,7 @@ Set up SIEM (Security Information & Event Management) to aggregate and analyze s
 Alerting:
 
 Integrate SIEM with Falco to send alerts for detected anomalies.
+
 💾 7. Data Protection & Backup
 Objective:
 Ensure disaster recovery with secure, encrypted backups.
@@ -93,6 +99,7 @@ Store backups in immutable S3 storage (WORM) and ensure they are encrypted using
 Backup Recovery:
 
 Test disaster recovery by restoring services from backups.
+
 📝 8. Policy Management
 Objective:
 Enforce security, compliance, and resource policies across the platform.
