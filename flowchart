@@ -1,0 +1,131 @@
+flowchart TB
+    %% Styles
+    classDef primary fill:#2563eb,stroke:#1e40af,color:white
+    classDef secondary fill:#4b5563,stroke:#374151,color:white
+    classDef highlight fill:#059669,stroke:#047857,color:white
+    
+    %% Identity & Authentication
+    subgraph auth["Identity & Authentication"]
+        direction TB
+        AUTH0["Auth0/Keycloak"]:::primary
+        OAUTH["OAuth2/OIDC"]
+        JWT["JWT Validator"]
+    end
+
+    %% API Security Layer
+    subgraph gateway["API Security Layer"]
+        direction TB
+        APIGW["API Gateway"]:::primary
+        WAF["Web Application Firewall"]
+        ENVOY["Envoy Proxy"]
+        RATELIMIT["Rate Limiter"]
+        
+        subgraph security_policies["Security Policies"]
+            JWT_VAL["JWT Validation"]
+            OAUTH_VAL["OAuth Validation"]
+        end
+        
+        subgraph rate_limiting["Rate Limiting"]
+            direction LR
+            BURST["Burst Limits"]
+            QUOTA["Quota"]
+            RPS["Requests Per Second"]
+        end
+    end
+
+    %% Service Mesh
+    subgraph mesh["Service Mesh Layer"]
+        direction TB
+        ISTIO["Istio"]:::primary
+        CILIUM["Cilium"]:::primary
+        
+        subgraph mtls["mTLS Security"]
+            SERVICE_CERTS["Service Certificates"]
+            MTLS_POLICY["mTLS Policies"]
+        end
+    end
+
+    %% Applications
+    subgraph apps["Application Services"]
+        direction TB
+        APP1["Service 1"]:::secondary
+        APP2["Service 2"]:::secondary
+        APP3["Service 3"]:::secondary
+    end
+
+    %% Observability
+    subgraph observability["Observability Stack"]
+        direction TB
+        subgraph tracing["Distributed Tracing"]
+            direction LR
+            OTEL["OpenTelemetry"]:::highlight --> TEMPO["Tempo"] --> JAEGER["Jaeger UI"]
+        end
+        
+        subgraph logging["Logging Pipeline"]
+            VECTOR["Vector"]:::highlight
+            LOKI["Loki"]
+        end
+        
+        subgraph metrics["Metrics & Monitoring"]
+            PROM["Prometheus"]:::highlight
+            GRAF["Grafana"]
+        end
+    end
+
+    %% Security Monitoring
+    subgraph security["Security Monitoring"]
+        direction TB
+        FALCO["Falco Runtime Security"]:::primary
+        SIEM["SIEM Platform"]:::primary
+    end
+
+    %% Data Protection
+    subgraph backup["Data Protection"]
+        direction TB
+        VELERO["Velero Backup"]:::primary
+        
+        subgraph storage["Backup Storage"]
+            S3_WORM["S3 WORM Storage"]
+            VAULT_BK["Vault Backup"]
+        end
+    end
+
+    %% Policy Management
+    subgraph policies["Policy Management"]
+        direction TB
+        KYVERNO["Kyverno"]:::primary
+        
+        subgraph policy_types["Policy Types"]
+            PSP["Pod Security"]
+            NET_POL["Network Policies"]
+            SEC_CTX["Security Context"]
+            RES_POL["Resource Policies"]
+        end
+    end
+
+    %% Connections
+    AUTH0 --> OAUTH --> JWT
+    APIGW --> WAF --> ENVOY
+    ENVOY --> JWT_VAL & OAUTH_VAL & RATELIMIT
+    RATELIMIT --> BURST & QUOTA & RPS
+    ENVOY --> ISTIO & CILIUM
+    ISTIO & CILIUM --> SERVICE_CERTS --> MTLS_POLICY
+    MTLS_POLICY --> APP1 & APP2 & APP3
+    APP1 & APP2 & APP3 --> OTEL
+    APP1 & APP2 & APP3 --> VECTOR --> LOKI
+    VECTOR --> SIEM
+    FALCO --> SIEM & VECTOR
+    KYVERNO --> PSP & NET_POL & SEC_CTX & RES_POL
+    KYVERNO --> SIEM
+    VELERO --> S3_WORM & VAULT_BK
+    VELERO --> SIEM
+
+    %% Apply styles
+    style auth fill:#f8fafc,stroke:#cbd5e1
+    style gateway fill:#f8fafc,stroke:#cbd5e1
+    style mesh fill:#f8fafc,stroke:#cbd5e1
+    style apps fill:#f8fafc,stroke:#cbd5e1
+    style observability fill:#f8fafc,stroke:#cbd5e1
+    style security fill:#f8fafc,stroke:#cbd5e1
+    style backup fill:#f8fafc,stroke:#cbd5e1
+    style policies fill:#f8fafc,stroke:#cbd5e1
