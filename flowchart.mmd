@@ -4,7 +4,7 @@ flowchart TB
     classDef secondary fill:#4b5563,stroke:#374151,color:white;
     classDef highlight fill:#059669,stroke:#047857,color:white;
     classDef subgraphFill fill:#f8fafc,stroke:#cbd5e1;
-        
+
     %% Identity & Authentication
     subgraph auth["Identity & Authentication"]
         direction TB
@@ -20,12 +20,12 @@ flowchart TB
         WAF["Web Application Firewall"]
         ENVOY["Envoy Proxy"]
         RATELIMIT["Rate Limiter"]
-        
+
         subgraph security_policies["Security Policies"]
             JWT_VAL["JWT Validation"]
             OAUTH_VAL["OAuth Validation"]
         end
-        
+
         subgraph rate_limiting["Rate Limiting"]
             direction LR
             BURST["Burst Limits"]
@@ -39,7 +39,7 @@ flowchart TB
         direction TB
         ISTIO["Istio"]:::primary
         CILIUM["Cilium"]:::primary
-        
+
         subgraph mtls["mTLS Security"]
             SERVICE_CERTS["Service Certificates"]
             MTLS_POLICY["mTLS Policies"]
@@ -61,12 +61,12 @@ flowchart TB
             direction LR
             OTEL["OpenTelemetry"]:::highlight --> TEMPO["Tempo"] --> JAEGER["Jaeger UI"]
         end
-        
+
         subgraph logging["Logging Pipeline"]
             VECTOR["Vector"]:::highlight
             LOKI["Loki"]
         end
-        
+
         subgraph metrics["Metrics & Monitoring"]
             PROM["Prometheus"]:::highlight
             GRAF["Grafana"]
@@ -84,7 +84,7 @@ flowchart TB
     subgraph backup["Data Protection"]
         direction TB
         VELERO["Velero Backup"]:::primary
-        
+
         subgraph storage["Backup Storage"]
             S3_WORM["S3 WORM Storage"]
             VAULT_BK["Vault Backup"]
@@ -95,7 +95,7 @@ flowchart TB
     subgraph policies["Policy Management"]
         direction TB
         KYVERNO["Kyverno"]:::primary
-        
+
         subgraph policy_types["Policy Types"]
             PSP["Pod Security"]
             NET_POL["Network Policies"]
@@ -122,11 +122,4 @@ flowchart TB
     VELERO --> SIEM
 
     %% Apply subgraph styles
-    style auth subgraphFill
-    style gateway subgraphFill
-    style mesh subgraphFill
-    style apps subgraphFill
-    style observability subgraphFill
-    style security subgraphFill
-    style backup subgraphFill
-    style policies subgraphFill
+    style auth, gateway, mesh, apps, observability, security, backup, policies subgraphFill
