@@ -1,9 +1,10 @@
 flowchart TB
-    %% Styles
-    classDef primary fill:#2563eb,stroke:#1e40af,color:white
-    classDef secondary fill:#4b5563,stroke:#374151,color:white
-    classDef highlight fill:#059669,stroke:#047857,color:white
-    
+    %% Define Styles
+    classDef primary fill:#2563eb,stroke:#1e40af,color:white;
+    classDef secondary fill:#4b5563,stroke:#374151,color:white;
+    classDef highlight fill:#059669,stroke:#047857,color:white;
+    classDef subgraphFill fill:#f8fafc,stroke:#cbd5e1;
+        
     %% Identity & Authentication
     subgraph auth["Identity & Authentication"]
         direction TB
@@ -103,7 +104,7 @@ flowchart TB
         end
     end
 
-    %% Connections
+    %% Define Connections
     AUTH0 --> OAUTH --> JWT
     APIGW --> WAF --> ENVOY
     ENVOY --> JWT_VAL & OAUTH_VAL & RATELIMIT
@@ -120,12 +121,5 @@ flowchart TB
     VELERO --> S3_WORM & VAULT_BK
     VELERO --> SIEM
 
-    %% Apply styles
-    style auth fill:#f8fafc,stroke:#cbd5e1
-    style gateway fill:#f8fafc,stroke:#cbd5e1
-    style mesh fill:#f8fafc,stroke:#cbd5e1
-    style apps fill:#f8fafc,stroke:#cbd5e1
-    style observability fill:#f8fafc,stroke:#cbd5e1
-    style security fill:#f8fafc,stroke:#cbd5e1
-    style backup fill:#f8fafc,stroke:#cbd5e1
-    style policies fill:#f8fafc,stroke:#cbd5e1
+    %% Apply subgraph styles
+    style auth & gateway & mesh & apps & observability & security & backup & policies subgraphFill
