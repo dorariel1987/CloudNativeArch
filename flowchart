@@ -1,3 +1,5 @@
+#mermain-diag.md
+```mermaid
 flowchart TB
     %% Styles
     classDef primary fill:#2563eb,stroke:#1e40af,color:white
@@ -129,3 +131,4 @@ flowchart TB
     style security fill:#f8fafc,stroke:#cbd5e1
     style backup fill:#f8fafc,stroke:#cbd5e1
     style policies fill:#f8fafc,stroke:#cbd5e1
+    ```
