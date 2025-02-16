@@ -8,8 +8,8 @@ This architecture represents a secure, observable, and scalable cloud-native pla
 Auth0/Keycloak: Identity provider supporting OAuth2 and OpenID Connect (OIDC).
 OAuth2/OIDC: Token-based authentication framework.
 JWT Validator: Ensures that access tokens (JWTs) are valid before allowing API requests.
-📌 Flow:
 
+📌 Flow:
 A user or service authenticates via Auth0/Keycloak.
 They receive an OAuth2/OIDC token (JWT).
 The JWT Validator verifies the token before allowing access to protected services.
@@ -26,8 +26,8 @@ Rate Limiter: Prevents API abuse by limiting request rates.
 Security Policies:
 JWT Validation → Verifies authentication tokens.
 OAuth Validation → Ensures proper OAuth2 scopes.
-📌 Flow:
 
+📌 Flow:
 API requests go through the API Gateway.
 The WAF inspects requests for security threats.
 The Envoy Proxy routes the request.
@@ -45,8 +45,8 @@ Cilium: eBPF-based networking and security enforcement.
 mTLS Security:
 Service Certificates: Ensures that only trusted services communicate.
 mTLS Policies: Enforces encrypted traffic between services.
-📌 Flow:
 
+📌 Flow:
 Istio and Cilium intercept all service-to-service communication.
 mTLS Certificates are exchanged for authentication.
 Network policies ensure only allowed services communicate.
@@ -57,8 +57,8 @@ Network policies ensure only allowed services communicate.
 🔹 Key Components:
 
 Service 1 / Service 2 / Service 3: Represents various applications running on the platform.
-📌 Flow:
 
+📌 Flow:
 API Gateway forwards requests to the appropriate service.
 Services interact securely through Service Mesh (Istio + Cilium).
 Services log events and send them to Observability Stack.
@@ -77,8 +77,8 @@ Loki → Stores logs for analysis.
 Metrics & Monitoring:
 Prometheus → Captures system and application metrics.
 Grafana → Visualizes metrics and logs in dashboards.
-📌 Flow:
 
+📌 Flow:
 Services generate traces (OTEL), logs (Vector), and metrics (Prometheus).
 Traces go to Tempo/Jaeger, logs go to Loki, and metrics go to Prometheus.
 Grafana aggregates all data for visualization.
@@ -90,8 +90,8 @@ Grafana aggregates all data for visualization.
 
 Falco: Monitors containers for security threats.
 SIEM (Security Information & Event Management): Aggregates security events from multiple sources.
-📌 Flow:
 
+📌 Flow:
 Falco detects anomalies (e.g., suspicious processes in a container).
 Security logs are forwarded to Vector and then to SIEM.
 SIEM correlates threats and generates alerts.
@@ -105,8 +105,8 @@ Velero: Kubernetes-native backup solution.
 Backup Storage:
 S3 WORM Storage → Immutable backups.
 Vault Backup → Secure, encrypted backup storage.
-📌 Flow:
 
+📌 Flow:
 Velero periodically takes snapshots of Kubernetes resources.
 Backups are stored in S3 WORM (immutable) or Vault (encrypted).
 In case of disaster, services can be restored from backups.
@@ -122,8 +122,8 @@ Pod Security Policies (PSP) → Restricts container privileges.
 Network Policies → Controls inter-service communication.
 Security Context → Defines security settings for workloads.
 Resource Policies → Manages CPU/memory limits.
-📌 Flow:
 
+📌 Flow:
 Kyverno validates new deployments.
 If a policy violation occurs, Kyverno blocks the deployment or alerts SIEM.
 SIEM logs violations for compliance audits.
@@ -134,8 +134,3 @@ SIEM logs violations for compliance audits.
 ✅ Full Observability → Logs, metrics, and traces for monitoring & debugging.
 ✅ Automated Security Enforcement → Kyverno + Falco detect & prevent threats.
 ✅ Disaster Recovery → Velero backups ensure quick recovery.
-
-🛠️ Final Thoughts
-This architecture follows best practices for Kubernetes security, observability, and resilience. It’s modular and cloud-native, allowing seamless scaling and easy integration with existing DevOps workflows.
-
-Let me know if you want to refine any area further! 🚀
