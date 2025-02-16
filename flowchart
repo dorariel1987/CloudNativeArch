@@ -1,4 +1,4 @@
-#mermain-diag.md
+#mermaid-diag.md
 ```mermaid
 flowchart TB
     %% Styles
